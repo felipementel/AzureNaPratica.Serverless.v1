@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Maps\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
