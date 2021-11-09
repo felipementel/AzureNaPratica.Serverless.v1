@@ -1,6 +1,8 @@
 ﻿using AzureNaPratica.Serverless.Domain.Base.Entity;
 using AzureNaPratica.Serverless.Domain.Base.Interfaces.Repository;
-using System;
+using AzureNaPratica.Serverless.Domain.Base.Interfaces.Repository.MongoDB;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,29 +11,36 @@ namespace AzureNaPratica.Serverless.Infra.Database.Repositories.Base
     public abstract class BaseRepository<TEntity, Tid>
         : IBaseRepository<TEntity, Tid> where TEntity : BaseEntityId<Tid>
     {
-        public Task<TEntity> DeleteAsync(Tid id)
+        public readonly IMongoCollection<TEntity> _collection;
+
+        protected BaseRepository(IMongoDbContext context, string collectionName) =>
+            _collection = context.GetCollection<TEntity>(collectionName);
+
+
+        public async virtual Task DeleteAsync(Tid id) =>
+            await _collection.DeleteOneAsync(Builders<TEntity>.Filter.Eq(t => t.Id, id));
+
+        public async virtual Task<IList<TEntity>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            var all = await _collection.FindAsync(new BsonDocument());
+
+            return await all.ToListAsync();
         }
 
-        public Task<IList<TEntity>> FindAllAsync()
+        public async virtual Task<TEntity> FindByIdAsync(Tid id)
         {
-            throw new NotImplementedException();
+            FilterDefinition<TEntity> filter = Builders<TEntity>.Filter.Eq(t => t.Id, id);
+
+            return await _collection.FindAsync(filter).Result.FirstOrDefaultAsync();
         }
 
-        public Task<TEntity> FindByIdAsync(Tid id)
-        {
-            throw new NotImplementedException();
-        }
+        public async virtual Task InsertAsync(TEntity entity) =>
+            await _collection.InsertOneAsync(entity);
 
-        public Task<TEntity> InsertAsync(TEntity entity)
+        public async virtual Task UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<TEntity> UpdateAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
+            var filter = Builders<TEntity>.Filter.Eq(t => t.Id, entity.Id);
+            await _collection.ReplaceOneAsync(filter, entity);
         }
     }
 }

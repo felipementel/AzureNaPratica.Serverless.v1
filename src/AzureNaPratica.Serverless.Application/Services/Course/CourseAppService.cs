@@ -1,11 +1,11 @@
-﻿using AzureNaPratica.Serverless.Application.Base.Interfaces.Service;
-using AzureNaPratica.Serverless.Application.DataTransferObject.Course;
+﻿using AzureNaPratica.Serverless.Application.DataTransferObject.Course;
+using AzureNaPratica.Serverless.Application.Interfaces.Course;
 using AzureNaPratica.Serverless.Domain.Aggregates.Course.Interfaces.Services;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using AzureNaPratica.Serverless.Application.Interfaces.Course;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace AzureNaPratica.Serverless.Application.Services.Course
 {
@@ -19,8 +19,12 @@ namespace AzureNaPratica.Serverless.Application.Services.Course
         }
 
         public async Task DeleteAsync(string id) =>
-            await _courseService.DeleteAsync(Guid.Parse(id));
+            await _courseService.DeleteAsync(id);
 
+        public Task<IList<CourseDto>> FindByPredicateAsync(Expression<Func<CourseDto, bool>> entity)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<IList<CourseDto>> GetAllAsync()
         {
@@ -28,19 +32,13 @@ namespace AzureNaPratica.Serverless.Application.Services.Course
             return item.Select(c => new CourseDto(c)).ToList();
         }
 
-        public async Task<CourseDto> GetByIdAsync(string id)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<CourseDto> GetByIdAsync(string id) =>
+            await _courseService.GetByIdAsync(id);
 
-        public async Task InsertAsync(CourseDto entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<CourseDto> InsertAsync(CourseDto entity) =>
+            await _courseService.InsertAsync(entity);
 
-        public async Task UpdateAsync(CourseDto entity)
-        {
-            throw new System.NotImplementedException();
-        }
+        public async Task<CourseDto> UpdateAsync(CourseDto entity) =>
+            await _courseService.UpdateAsync(entity);
     }
 }

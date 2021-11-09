@@ -4,8 +4,26 @@ using static AzureNaPratica.Serverless.Domain.Aggregates.Course.ValueObjects.Enu
 
 namespace AzureNaPratica.Serverless.Domain.Aggregates.Course.Entities
 {
-    public record Course : BaseEntityId<Guid>
+    public record Course : BaseEntityId<string>
     {
+        public Course(
+            string id,
+            string name,
+            bool isActive,
+            DateTime startDate,
+            DateTime conclusionDate,
+            decimal price,
+            Shift shift = default)
+        {
+            Id = id;
+            Name = name;
+            IsActive = isActive;
+            StartDate = startDate;
+            ConclusionDate = conclusionDate;
+            Price = price;
+            Shift = shift;
+        }
+
         public Course(
             string name,
             bool isActive,

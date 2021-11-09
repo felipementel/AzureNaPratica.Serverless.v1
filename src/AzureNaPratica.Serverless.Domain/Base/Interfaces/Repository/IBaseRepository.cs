@@ -11,11 +11,11 @@ namespace AzureNaPratica.Serverless.Domain.Base.Interfaces.Repository
 
         Task<TEntity> FindByIdAsync(Tid id);
 
-        Task<TEntity> UpdateAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
 
-        Task<TEntity> DeleteAsync(Tid id);
+        Task DeleteAsync(Tid id);
 
-        Task<TEntity> InsertAsync(TEntity entity);
+        Task InsertAsync(TEntity entity);
 
         //TODO: Paged
     }

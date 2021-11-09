@@ -1,5 +1,7 @@
 ﻿using AzureNaPratica.Serverless.Application.DataTransferObject.Base;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AzureNaPratica.Serverless.Application.Base.Interfaces.Service
@@ -11,12 +13,12 @@ namespace AzureNaPratica.Serverless.Application.Base.Interfaces.Service
 
         Task<TEntity> GetByIdAsync(Tid id);
 
-        Task UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
         Task DeleteAsync(Tid id);
 
-        Task InsertAsync(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
 
-        //TODO: Paged
+        Task<IList<TEntity>> FindByPredicateAsync(Expression<Func<TEntity,bool>> entity);
     }
 }

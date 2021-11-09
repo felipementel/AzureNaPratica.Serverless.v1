@@ -4,18 +4,32 @@ using static AzureNaPratica.Serverless.Domain.Aggregates.Student.ValueObjects.En
 
 namespace AzureNaPratica.Serverless.Domain.Aggregates.Student.Entities
 {
-    public record Student : BaseEntityId<Guid>
+    public record Student : BaseEvent<string>
     {
+        public Student(
+            string id,
+            string name,
+            DateTime enterDate,
+            SexualOrientation sexualOrientation,
+            int lucyNumber)
+        {
+            Id = id;
+            Name = name;
+            EnterDate = enterDate;
+            SexualOrientation = sexualOrientation;
+            LucyNumber = lucyNumber;
+        }
+
         public Student(
             string name,
             DateTime enterDate,
             SexualOrientation sexualOrientation,
-            Course.Entities.Course course)
+            int lucyNumber)
         {
             Name = name;
             EnterDate = enterDate;
             SexualOrientation = sexualOrientation;
-            Course = course;
+            LucyNumber = lucyNumber;
         }
 
         public string Name { get; init; }
@@ -24,6 +38,11 @@ namespace AzureNaPratica.Serverless.Domain.Aggregates.Student.Entities
 
         public SexualOrientation SexualOrientation { get; init; }
 
-        public Course.Entities.Course Course { get; init; }
+        public int LucyNumber { get; private set; }
+
+        public void SetLucyNumber(int value)
+        {
+            LucyNumber = value;
+        }
     }
 }

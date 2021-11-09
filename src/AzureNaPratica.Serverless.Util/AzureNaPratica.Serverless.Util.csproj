@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<ProjectGuid>37de8efd-5dcb-4c4c-b44a-ac72a6105d36</ProjectGuid>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
+	</ItemGroup>
+
+</Project>
