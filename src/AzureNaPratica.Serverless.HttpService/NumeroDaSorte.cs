@@ -1,5 +1,6 @@
 ﻿using AzureNaPratica.Serverless.Domain.Base.Interfaces.HttpService;
 using System.Net.Http;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace AzureNaPratica.Serverless.HttpService
@@ -28,12 +29,13 @@ namespace AzureNaPratica.Serverless.HttpService
 
             body = await content.Content.ReadAsStringAsync();
 
-            return System.Text.Json.JsonSerializer.Deserialize<NumeroDaSorte>(body).numeroDaSorte;
+            return System.Text.Json.JsonSerializer.Deserialize<NumeroDaSorte>(body).Numero;
         }
     }
 
     public class NumeroDaSorte
     {
-        public int numeroDaSorte { get; set; }
+        [JsonPropertyName(name: "numeroDaSorte")]
+        public int Numero { get; set; }
     }
 }

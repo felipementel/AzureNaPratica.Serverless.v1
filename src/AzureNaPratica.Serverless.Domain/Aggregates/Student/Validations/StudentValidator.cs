@@ -10,7 +10,8 @@ namespace AzureNaPratica.Serverless.Domain.Aggregates.Student.Validations
             {
                 RuleFor(c => c.Name)
                 .NotEmpty()
-                .WithMessage("{PropertyName} can not be empty");
+                .WithMessage("{PropertyName} can not be empty")
+                .WithSeverity(Severity.Error);
             });
         }
     }
