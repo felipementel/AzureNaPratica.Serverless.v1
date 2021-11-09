@@ -2,6 +2,7 @@
 using Bogus;
 using System;
 using System.Collections.Generic;
+using static AzureNaPratica.Serverless.Domain.Aggregates.Course.ValueObjects.Enumerations;
 
 namespace AzureNaPratica.Serverless.Domain.Tests.Fixtures
 {
@@ -10,11 +11,38 @@ namespace AzureNaPratica.Serverless.Domain.Tests.Fixtures
         public static List<Course> CreateValidCourse(int items, string language) =>
             new Faker<Course>()
             //.StrictMode(true)
-            .RuleFor(c => c.Id, c => Guid.NewGuid().ToString())
-            .RuleFor(c => c.Price, c => Decimal.Parse(c.Commerce.Price()))
+            .CustomInstantiator(c => new Course(
+                c.Random.Guid().ToString(),
+                c.Name.FirstName(Bogus.DataSets.Name.Gender.Male),
+                c.Random.Bool(),
+                c.Date.Future(),
+                c.Date.Future(),
+                Decimal.Parse(c.Commerce.Price()),
+                c.Random.Enum<Shift>()))
             .FinishWith((f, u) =>
             {
                 Console.WriteLine("Course Created! Id={0}", u.Id);
+            })
+            .Generate(items);
+        
+        /// <summary>
+        /// Invalid = without Name and Id 
+        /// </summary>
+        /// <param name="items"></param>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public static List<Course> CreateInValidCourse(int items, string language) =>
+           new Faker<Course>()
+           .CustomInstantiator(c => new Course(
+                c.Name.FirstName(Bogus.DataSets.Name.Gender.Male),
+                c.Random.Bool(),
+                c.Date.Future(),
+                c.Date.Future(),
+                Decimal.Parse(c.Commerce.Price()),
+                c.Random.Enum<Shift>()))
+            .FinishWith((f, u) =>
+            {
+                Console.WriteLine("Invalid Course Created!");
             })
             .Generate(items);
     }

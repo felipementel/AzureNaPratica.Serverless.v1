@@ -1,11 +1,11 @@
+using AzureNaPratica.Serverless.Domain.Aggregates.Course.Entities;
 using AzureNaPratica.Serverless.Domain.Aggregates.Course.Interfaces.Repositories;
 using AzureNaPratica.Serverless.Domain.Aggregates.Course.Interfaces.Services;
 using AzureNaPratica.Serverless.Domain.Aggregates.Course.Services;
+using AzureNaPratica.Serverless.Domain.Aggregates.Course.Validations;
 using AzureNaPratica.Serverless.Domain.Tests.Fixtures;
 using FluentAssertions;
-using FluentValidation;
 using Moq;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -17,26 +17,26 @@ namespace AzureNaPratica.Serverless.Domain.Tests
 
         private readonly Mock<ICourseRepository> _courseRepositoryMock;
 
-        private readonly Mock<IValidator<Domain.Aggregates.Course.Entities.Course>> _validator;
+        private readonly CourseValidator _validator;
 
         public CourseServiceTest()
         {
             _courseRepositoryMock = new Mock<ICourseRepository>();
-            _validator = new Mock<IValidator<Domain.Aggregates.Course.Entities.Course>>();
+            _validator = new CourseValidator();
 
             _courseService = new CourseService(
                 _courseRepositoryMock.Object,
-                _validator.Object);
+                _validator);
         }
 
         [Fact]
         public async Task InsertCourseAsync_WhenCourseIsValid_ShallRequestInsertCourseAsync()
         {
             //Arrange
-            var items = CourseFixture.CreateValidCourse(3, "en");
+            var items = CourseFixture.CreateValidCourse(1, "en");
 
-            //_courseRepositoryMock.Setup(c => c.InsertAsync(items.First()))
-            //    .ReturnsAsync(items);
+            _courseRepositoryMock.Setup(c => c.InsertAsync(It.IsAny<Course>()))
+                .Returns(Task.FromResult(items[0]));
 
             //Act
             var itemNew = await _courseService.InsertAsync(items[0]);
@@ -44,7 +44,7 @@ namespace AzureNaPratica.Serverless.Domain.Tests
             //Assert
             itemNew.Id.Should().NotBeEmpty();
 
-            _courseRepositoryMock.Verify(c => c.FindAllAsync(), Times.Once);
+            _courseRepositoryMock.Verify(c => c.InsertAsync(It.IsAny<Course>()), Times.Once);
         }
 
         [Fact]
@@ -57,12 +57,11 @@ namespace AzureNaPratica.Serverless.Domain.Tests
                 .ReturnsAsync(items);
 
             //Act
-            var itemNew = await _courseService.InsertAsync(items[0]);
+            var itemNew = await _courseService.GetAllAsync();
 
             //Assert
-            itemNew.Id.Should().NotBeEmpty();
 
-            _courseRepositoryMock.Verify(c => c.FindAllAsync(), Times.Once);            
+            _courseRepositoryMock.Verify(c => c.FindAllAsync(), Times.Once);
         }
     }
 }
