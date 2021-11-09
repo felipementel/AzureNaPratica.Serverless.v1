@@ -2,9 +2,9 @@
 
 namespace AzureNaPratica.Serverless.Domain.Aggregates.Course.Validations
 {
-    public class StudentValidator : AbstractValidator<Entities.Course>
+    public class CourseValidator : AbstractValidator<Entities.Course>
     {
-        public StudentValidator()
+        public CourseValidator()
         {
             RuleSet("new", () =>
             {

@@ -13,7 +13,7 @@ namespace AzureNaPratica.Serverless.Domain.Base.Interfaces.Service
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
-        Task<TEntity> DeleteAsync(Tid id);
+        Task DeleteAsync(Tid id);
 
         Task<TEntity> InsertAsync(TEntity entity);
 

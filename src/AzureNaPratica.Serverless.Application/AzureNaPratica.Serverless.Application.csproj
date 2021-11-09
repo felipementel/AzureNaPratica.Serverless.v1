@@ -1,20 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.4" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Interfaces\Student\" />
-    <Folder Include="Services\Student\" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<ProjectGuid>{B4843465-CC0A-4429-A957-6F23DEF4508F}</ProjectGuid>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation" Version="10.3.4" />
+		<PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
+	</ItemGroup>
 
 </Project>

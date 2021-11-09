@@ -1,15 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<ProjectGuid>aa91e899-e9b2-4d81-819d-43128bc74d03</ProjectGuid>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Maps\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+		<PackageReference Include="MongoDB.Bson" Version="2.13.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\AzureNaPratica.Serverless.Domain\AzureNaPratica.Serverless.Domain.csproj" />
+	</ItemGroup>
 
 </Project>
