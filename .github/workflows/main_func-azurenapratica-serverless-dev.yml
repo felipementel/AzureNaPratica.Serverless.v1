@@ -31,6 +31,11 @@ jobs:
           cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           dotnet build --configuration Release --output output
 
+      - name: Azure Login - Conectando com Credenciais no Azure
+        uses: Azure/login@v1.1
+        with:
+          creds: ${{ secrets.AZURE_NA_PRATICA }}
+        
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
@@ -38,4 +43,4 @@ jobs:
           app-name: 'func-azurenapratica-serverless-dev'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4E47C3B82524150A5F350FBACE56D34 }}
+          # publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4E47C3B82524150A5F350FBACE56D34 }}
