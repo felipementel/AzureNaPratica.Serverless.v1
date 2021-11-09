@@ -8,7 +8,7 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+  
 defaults:
   run:
     working-directory: src
@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-          dotnet build --configuration Release --output ./output
+          dotnet build --configuration Release --output /output
           popd
 
       - name: 'Run Azure Functions Action'
@@ -43,4 +43,4 @@ jobs:
           app-name: 'func-azurenapratica-serverless-dev'
           slot-name: 'Production'
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BA118BDF22784519BCA417CDD30EF220 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E4E47C3B82524150A5F350FBACE56D34 }}
