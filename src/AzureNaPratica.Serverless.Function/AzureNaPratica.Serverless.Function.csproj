@@ -5,6 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<UserSecretsId>aea5d457-c555-4afc-9c54-80c54a2ae5bf</UserSecretsId>
 		<ProjectGuid>c23208e8-8311-47f7-a4ac-66f759c149b8</ProjectGuid>
+		<AssemblyVersion>1.2.0.0</AssemblyVersion>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

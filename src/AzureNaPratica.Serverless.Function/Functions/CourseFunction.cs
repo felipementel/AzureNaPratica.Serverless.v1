@@ -22,8 +22,9 @@ namespace AzureNaPratica.Serverless.Function.Functions
 
         [Function("CourseFunction")]
         public async Task<HttpResponseData> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req,
-            FunctionContext executionContext)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "courses/{id?}")] HttpRequestData req,
+            FunctionContext executionContext,
+            string? id)
         {
             var logger = executionContext.GetLogger("Course Function");
 
@@ -46,14 +47,32 @@ namespace AzureNaPratica.Serverless.Function.Functions
                 }
                 if (HttpMethods.IsGet(req.Method))
                 {
-                    var items = await _courseAppService.GetAllAsync();
-                    var response = req.CreateResponse(HttpStatusCode.OK);
-                    string body = Util.OurSerlialization.Serializer(items);
+                    if (string.IsNullOrEmpty(id) is true)
+                    {
+                        var items = await _courseAppService.GetAllAsync();
 
-                    response.Body = body.ConvertStringToStream();
-                    response.Headers.Add("Content-Type", "application/json");
+                        var response = req.CreateResponse(HttpStatusCode.OK);
+                        string body = Util.OurSerlialization.Serializer(items);
 
-                    return response;
+                        response.Body = body.ConvertStringToStream();
+                        response.Headers.Add("Content-Type", "application/json");
+
+                        return response;
+                    }
+                    else
+                    {
+                        var items = await _courseAppService.GetByIdAsync(id);
+
+                        var response = req.CreateResponse(HttpStatusCode.OK);
+                        string body = Util.OurSerlialization.Serializer(items);
+
+                        response.Body = body.ConvertStringToStream();
+                        response.Headers.Add("Content-Type", "application/json");
+
+                        return response;
+                    }
+
+                    
                 }
                 else
                 {
