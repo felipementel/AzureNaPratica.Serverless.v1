@@ -24,7 +24,7 @@ namespace AzureNaPratica.Serverless.Function.Functions
         public async Task<HttpResponseData> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "courses/{id?}")] HttpRequestData req,
             FunctionContext executionContext,
-            string? id)
+            string id)
         {
             var logger = executionContext.GetLogger("Course Function");
 

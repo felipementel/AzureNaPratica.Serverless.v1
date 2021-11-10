@@ -32,7 +32,7 @@ namespace AzureNaPratica.Serverless.Infra.Database.Maps.Base
                 .SetElementName("name")
                 .SetOrder(2)
                 .SetIgnoreIfNull(true)
-                .SetIsRequired(false)
+                .SetIsRequired(true)
                 .SetSerializer(new StringSerializer(BsonType.String));
 
                 map

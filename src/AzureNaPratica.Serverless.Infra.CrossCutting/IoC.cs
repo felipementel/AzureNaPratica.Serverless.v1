@@ -31,29 +31,29 @@ namespace AzureNaPratica.Serverless.Infra.CrossCutting
 {
     public static class IoC
     {
-        public static void AddDependenciesInjectios(
+        public static void AddDependenciesInjections(
             this IServiceCollection services,
             IConfiguration configuration)
         {
             services.AddSingleton<IMongoDbContext, MongoDbContext>();
 
             services.AddScoped<ICourseAppService, CourseAppService>();
-            services.AddScoped<ICourseService, CourseService>();
-            services.AddScoped<IValidator<Course>, CourseValidator>();
-            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IValidator<Course>, CourseValidator>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
 
             services.AddScoped<IStudentAppService, StudentAppService>();
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<IValidator<Student>, StudentValidator>();
-            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddTransient<IStudentService, StudentService>();
+            services.AddTransient<IValidator<Student>, StudentValidator>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
 
-            services.AddScoped<IStudentMessageBroker, StudentMessageBroker>();
+            services.AddTransient<IStudentMessageBroker, StudentMessageBroker>();
 
             services.AddScoped<ILuckyNumber, LuckyNumber>()
-                .AddHttpClient("lucyNumber", config =>
+                .AddHttpClient("luckyNumber", config =>
                 {
-                    config.BaseAddress = new Uri(configuration["ExternalServices:LucyNumber:url"]);
-                    config.DefaultRequestHeaders.Add("x-functions-key", configuration["ExternalServices:LucyNumber:ApiKey"]);
+                    config.BaseAddress = new Uri(configuration["ExternalServices:LuckyNumber:url"]);
+                    config.DefaultRequestHeaders.Add("x-functions-key", configuration["ExternalServices:LuckyNumber:ApiKey"]);
                     config.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 })
                 .SetHandlerLifetime(TimeSpan.FromMinutes(5))

@@ -16,9 +16,9 @@ namespace AzureNaPratica.Serverless.HttpService
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<int> GetLucyNumber()
+        public async Task<int> GetLuckyNumber()
         {
-            using var httpClient = _httpClientFactory.CreateClient("lucyNumber");
+            using var httpClient = _httpClientFactory.CreateClient("luckyNumber");
             var content = await httpClient.GetAsync("/api/obternumerodasorte");
 
             string body = string.Empty;

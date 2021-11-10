@@ -1,16 +1,15 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Azure.Functions.Worker.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using AzureNaPratica.Serverless.Infra.Database.Maps.Setup;
 using AzureNaPratica.Serverless.Domain.Configs;
 using AzureNaPratica.Serverless.Infra.CrossCutting;
-using Serilog;
-using Microsoft.AspNetCore.ResponseCompression;
+using AzureNaPratica.Serverless.Infra.Database.Maps.Setup;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 using Serilog.Events;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace AzureNaPratica.Serverless.Function
 {
@@ -32,7 +31,7 @@ namespace AzureNaPratica.Serverless.Function
                     }
                 })
                 .ConfigureFunctionsWorkerDefaults()
-                .ConfigureLogging(logging => 
+                .ConfigureLogging(logging =>
                 {
                     Log.Logger = new LoggerConfiguration()
                     .MinimumLevel.Debug()
@@ -73,7 +72,7 @@ namespace AzureNaPratica.Serverless.Function
                         options.EnableForHttps = true;
                     });
 
-                    services.AddDependenciesInjectios(context.Configuration);
+                    services.AddDependenciesInjections(context.Configuration);
                 })
                 .Build();
 

@@ -12,6 +12,11 @@ namespace AzureNaPratica.Serverless.Domain.Aggregates.Course.Validations
                 .NotEmpty()
                 .WithMessage("{PropertyName} can not be empty")
                 .WithSeverity(Severity.Error);
+
+                RuleFor(c => c.Price)
+                .NotEmpty()
+                .WithMessage("{PropertyName} can not be empty")
+                .WithSeverity(Severity.Error);
             });
 
             RuleSet("update", () =>

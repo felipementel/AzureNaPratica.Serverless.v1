@@ -54,7 +54,7 @@ namespace AzureNaPratica.Serverless.Domain.Aggregates.Student.Services
                 return entity;
             }
 
-            int number = await _luckyNumber.GetLucyNumber();
+            int number = await _luckyNumber.GetLuckyNumber();
 
             entity.SetLucyNumber(number);
 

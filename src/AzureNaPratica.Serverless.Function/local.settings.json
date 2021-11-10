@@ -8,13 +8,13 @@
     "TopicStudent": "sbt-student"
   },
   "ConnectionStrings": {
-    "MongoDbConnectionString": "",
-    "ServiceBus": ""
+    "MongoDbConnectionString": "mongodb://cosmos-azurenapratica-serverless-dev:hP9AQQQNNBEHqS2oVGX8B1IorveJ93Ln0ouwbnuJOSOcWTNFqdtHhi96F3TJ390eQzjQyGNfO2Q3RN9fWrAYvA==@cosmos-azurenapratica-serverless-dev.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@cosmos-azurenapratica-serverless-dev@",
+    "ServiceBus": "Endpoint=sb://sb-azurenaprativa-serverless-dev.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=qylxpDJGiDrUAM3E9L9dBYpwxgeqyhuKmyaPuSWPdaQ="
   },
   "ExternalServices": {
-    "LucyNumber": {
-      "url": "https://func-azurenapratica-numerodasorte-dev.azurewebsites.net",
-      "ApiKey": ""
+    "LuckyNumber": {
+      "url": "http://localhost:7071",
+      "ApiKey": "ZeN78Si75IzfQ9gq/VX/0w07YSqaoEh85o3Ha8NJr6mAaWm2a9ZMHg=="
     }
   },
   "Serilog": {
